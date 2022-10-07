@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
+from django.db.models.fields.related import ForeignKey, OneToOneField
+from django.db.models.signals import post_save , pre_save
+from django.dispatch import receiver
 
 class UserManager(BaseUserManager):
     def create_user(self, first_name,last_name, username, email, password=None):
@@ -74,7 +76,7 @@ class User(AbstractBaseUser):
         return True
     
 class UserProfile(models.Model):
-    user = models.OneToOneField("User", blank= True, null=True, on_delete=models.CASCADE)
+    user = OneToOneField("User", blank= True, null=True, on_delete=models.CASCADE)
     profile_picture = models.ImageField(blank=True, null=True, upload_to= 'user/profile_pictures')
     cover_photo = models.ImageField(blank=True, null=True, upload_to= 'user/cover_photos')
     address_line_1 = models.TextField(blank=True, null=True, max_length=50)
@@ -91,3 +93,8 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.email
     
+ 
+ 
+
+            
+            
