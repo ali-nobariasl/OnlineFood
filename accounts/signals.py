@@ -12,7 +12,7 @@ def post_save_create_profile(sender,instance,created,**kwargs):
         UserProfile.objects.create(user=instance)
     else:
         try:
-            profile = UserProfile.objects.create(user=instance)
+            profile = UserProfile.objects.get(user=instance)
             profile.save()
         except:
             UserProfile.objects.create(user=instance)
