@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -14,7 +16,7 @@
                             <p class="text-center">Please fill this form to get yourself onboarded in the foodOnline marketplace.</p>
                             <hr>
                             <div id="restaurant-sets-holder">
-                                <form action={% 'staic' registerUser %}  class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="register-select-package.html">
+                                <form action="{% url 'registerUser' %}"  class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="register-select-package.html">
                                     {% csrf_token %}
                                     <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                         <li>
@@ -87,4 +89,4 @@
 		</div>
 		<!-- Main Section End -->
 
-{% endblock  %}
+{% endblock %}

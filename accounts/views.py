@@ -1,11 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from .forms import UserForm
-
+from .models import User
 
 def registerUser(request):
-    form = UserForm()
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user =form.save(commit=False)
+            user.role = User.CUSTOMER
+            user.save()
+            return redirect('registerUser')
+    else:
+        form = UserForm()
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'accounts/registerUser.html', context)
