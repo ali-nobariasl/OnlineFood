@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .forms import UserForm
 
 
 def registerUser(request):
-    return render(request, 'accounts/registerUser.html')
+    form = UserForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/registerUser.html', context)
