@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .forms import UserForm
 from .models import User
+from django.utils import timezone
 
 def registerUser(request):
     if request.method == 'POST':
