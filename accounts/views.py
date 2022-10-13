@@ -26,7 +26,13 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVender(request):
-    form = UserForm()
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        v_form = VendorForm(request.POST, request.FILES)
+        if form.is_valid() and v_form.is_valid():
+            pass
+        esle:
+            print(form.errors)
     v_form = VendorForm()
     context = {
         'form': form,
