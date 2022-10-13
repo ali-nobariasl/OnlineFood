@@ -22,3 +22,6 @@ def registerUser(request):
         'form': form,
     }
     return render(request, 'accounts/registerUser.html', context)
+
+def registerVender(request):
+    return render(request, 'accounts/registerVender.html')
