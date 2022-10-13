@@ -4,6 +4,8 @@ from django.contrib import messages
 from .forms import UserForm
 from .models import User
 from django.utils import timezone
+from verndor.forms import VendorForm
+
 
 def registerUser(request):
     if request.method == 'POST':
@@ -24,4 +26,11 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVender(request):
-    return render(request, 'accounts/registerVender.html')
+    form = UserForm()
+    v_form = VendorForm()
+    context = {
+        'form': form,
+        'v_form': v_form,
+    }
+    return render(request, 'accounts/registerVender.html', context)
+
