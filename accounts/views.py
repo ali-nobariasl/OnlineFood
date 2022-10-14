@@ -5,7 +5,8 @@ from .forms import UserForm
 from .models import User, UserProfile
 from django.utils import timezone
 from verndor.forms import VendorForm
-
+from accounts.utils import detectUser
+from django.contrib.auth.decorators import login_required
 
 def registerUser(request):
     if request.user.is_authenticated:
@@ -65,7 +66,7 @@ def registerVender(request):
 def login(request):
     if request.user.is_authenticated:
         messages.warning(request, 'You are loged in already :D' )
-        return redirect('dashboard')
+        return redirect('myAccount')
     
     if request.method =="POST":
         email = request.POST['email']
@@ -75,22 +76,25 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'you are now logged in')
-            return redirect('dashboard')
+            return redirect('myAccount')
         else:
             messages.error(request, 'invalid, you are not logged in')
             return redirect('login')
     return render(request, 'accounts/login.html')
-
-
 
 def logout(request):
     auth.logout(request)
     messages.success(request, 'you are now logged out')
     return redirect('login')
 
-def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+def custdashboard(request):
+    return render(request, 'accounts/custdashboard.html')
 
+def vendordashboard(request):
+    return render(request, 'accounts/vendordashboard.html')
+
+@login_required(login_url='login')
 def myAccount(request):
-    
-    pass
+    user = request.user
+    redirectUrl = detectUser(user)
+    return redirect(redirectUrl)
