@@ -2,7 +2,7 @@ from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import UserForm
-from .models import User
+from .models import User, UserProfile
 from django.utils import timezone
 from verndor.forms import VendorForm
 
@@ -38,7 +38,7 @@ def registerVender(request):
             user = User.objects.create_user(username=username, email=email, password=password,first_name=first_name, last_name=last_name)
             user.role = User.VENDOR
             user.save()
-            user_profile = User.objects.get(user= user)
+            user_profile = UserProfile.objects.get(user= user)
             vendor = v_form.save(commit=False)
             vendor.user = user
             vendor.user_profile = user_profile
@@ -48,9 +48,11 @@ def registerVender(request):
             print(form.errors)
     else:
         v_form = VendorForm()
-        context = {
-            'form': form,
-            'v_form': v_form,
+        form = UserForm()
+    context = {
+        'form': form,
+        'v_form': v_form,
     }
+    
     return render(request, 'accounts/registerVender.html', context)
 
