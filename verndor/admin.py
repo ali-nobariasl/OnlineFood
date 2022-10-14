@@ -1,6 +1,10 @@
 from django.contrib import admin
-
 from verndor.models import Vender
 
 
-admin.site.register(Vender)
+
+class VenderAdmin(admin.ModelAdmin):
+    list_display = ('user','vender_name','is_approved','created_at')
+    list_display_links = ('user','vender_name')
+
+admin.site.register(Vender, VenderAdmin)
