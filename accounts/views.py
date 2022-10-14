@@ -1,6 +1,6 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
-from django.contrib import messages
+from django.contrib import messages , auth
 from .forms import UserForm
 from .models import User, UserProfile
 from django.utils import timezone
@@ -57,7 +57,21 @@ def registerVender(request):
     return render(request, 'accounts/registerVender.html', context)
 
 def login(request):
+    if request.method =="POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        user = auth.authenticate(email=email, password=password)
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'you are now logged in')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'invalid, you are not logged in')
+            return redirect('login')
     return render(request, 'accounts/login.html')
+
+
 
 def logout(request):
     return render(request, 'accounts/logout.html')
