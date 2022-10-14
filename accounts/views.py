@@ -90,3 +90,6 @@ def logout(request):
 
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
+
+def myAccount(request):
+    pass
