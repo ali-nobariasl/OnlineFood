@@ -8,6 +8,9 @@ from verndor.forms import VendorForm
 
 
 def registerUser(request):
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are loged in already :D' )
+        return redirect('dashboard')
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -26,6 +29,9 @@ def registerUser(request):
     return render(request, 'accounts/registerUser.html', context)
 
 def registerVender(request):
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are loged in already :D' )
+        return redirect('dashboard')
     if request.method == 'POST':
         form = UserForm(request.POST)
         v_form = VendorForm(request.POST, request.FILES)
@@ -57,9 +63,13 @@ def registerVender(request):
     return render(request, 'accounts/registerVender.html', context)
 
 def login(request):
+    if request.user.is_authenticated:
+        messages.warning(request, 'You are loged in already :D' )
+        return redirect('dashboard')
+    
     if request.method =="POST":
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        email = request.POST['email']
+        password = request.POST['password']
         
         user = auth.authenticate(email=email, password=password)
         if user is not None:
