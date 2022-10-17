@@ -9,3 +9,9 @@ def detectUser(user):
     elif user.role == None or user.is_superuser:
         redirectUrl = '/admin'
         return redirectUrl
+    
+    
+    
+
+def send_verification_email(request,user):
+    pass
