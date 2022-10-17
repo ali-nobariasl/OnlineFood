@@ -146,3 +146,12 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR:'danger',
 }
+
+
+#email configuration
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'django.foodonline@gmail.com'
+EMAIL_HOST_PASSWORD = 'password@123'
+EMIAL_USER_TLS = True
