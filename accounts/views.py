@@ -64,6 +64,7 @@ def registerVender(request):
             
             # Send verification email
             send_verification_email(request, user)
+            
             user_profile = UserProfile.objects.get(user= user)
             vendor = v_form.save(commit=False)
             vendor.user = user
