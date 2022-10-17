@@ -5,7 +5,7 @@ from .forms import UserForm
 from .models import User, UserProfile
 from django.utils import timezone
 from verndor.forms import VendorForm
-from accounts.utils import detectUser
+from accounts.utils import detectUser , send_verification_email
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.core.exceptions import PermissionDenied 
 
@@ -61,6 +61,9 @@ def registerVender(request):
             user = User.objects.create_user(username=username, email=email, password=password,first_name=first_name, last_name=last_name)
             user.role = User.VENDOR
             user.save()
+            
+            # Send verification email
+            send_verification_email(request, user)
             user_profile = UserProfile.objects.get(user= user)
             vendor = v_form.save(commit=False)
             vendor.user = user
