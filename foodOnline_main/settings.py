@@ -150,8 +150,8 @@ MESSAGE_TAGS = {
 
 #email configuration
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'django.foodonline@gmail.com'
-EMAIL_HOST_PASSWORD = 'password@123'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMIAL_USER_TLS = True
