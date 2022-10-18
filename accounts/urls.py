@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import registerUser, registerVender ,login,logout,custDashboard,myAccount ,vendorDashboard
+from .views import registerUser, registerVender ,login,logout,custDashboard,myAccount ,vendorDashboard , activate
 
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     path('custDashboard/', custDashboard, name='custDashboard'),
     path('vendorDashboard/', vendorDashboard, name='vendorDashboard'),
     
+    path('activate/<uidb64>/<token>', activate, name='activate'),
     
 ]
 
