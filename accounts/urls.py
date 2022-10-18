@@ -13,7 +13,7 @@ urlpatterns = [
     path('custDashboard/', custDashboard, name='custDashboard'),
     path('vendorDashboard/', vendorDashboard, name='vendorDashboard'),
     
-    path('activate/<uidb64>/<token>', activate, name='activate'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
     
 ]
 
