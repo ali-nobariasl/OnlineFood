@@ -1,3 +1,4 @@
+from base64 import urlsafe_b64decode
 from django.shortcuts import render ,redirect
 from django.http import HttpResponse
 from django.contrib import messages , auth
@@ -8,6 +9,9 @@ from verndor.forms import VendorForm
 from accounts.utils import detectUser , send_verification_email
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.core.exceptions import PermissionDenied 
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+
 
 # Restrict the vendor from accessing the customer page
 def check_role_vendor(user):
@@ -84,9 +88,19 @@ def registerVender(request):
     return render(request, 'accounts/registerVender.html', context)
 
 def activate(request,uidb64, token):
-  pass
-
-
+    # Active the user by setting the is_active status to True
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)  
+    except(TypeError,ValueError,OverflowError,User.DoesNotExist):
+        user = None
+    if user is None and default_token_generator.check_token(user,token):
+        user.is_active = True   
+        user.save()
+        messages.success(request,'Con...! your account has been activated')
+        return redirect('myAccount')
+    else:
+        messages.error(request,'invalid activation link !!!')  
 
 def login(request):
     if request.user.is_authenticated:
