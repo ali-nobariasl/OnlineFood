@@ -36,6 +36,8 @@ def registerUser(request):
             user.set_password(password)
             user.role = User.CUSTOMER
             user.save()
+            # Send verification email
+            send_verification_email(request, user)
             messages.success(request, 'your account has been registered successfully')
             return redirect('registerUser')
     else:
@@ -61,15 +63,13 @@ def registerVender(request):
             user = User.objects.create_user(username=username, email=email, password=password,first_name=first_name, last_name=last_name)
             user.role = User.VENDOR
             user.save()
-            
-            # Send verification email
-            send_verification_email(request, user)
-            
             user_profile = UserProfile.objects.get(user= user)
             vendor = v_form.save(commit=False)
             vendor.user = user
             vendor.user_profile = user_profile
             vendor.save()
+            # Send verification email
+            send_verification_email(request, user)
             messages.success(request,'your account has been successfully registered. please wait for approval.')
         else:
             print(form.errors)
@@ -82,6 +82,11 @@ def registerVender(request):
     }
     
     return render(request, 'accounts/registerVender.html', context)
+
+def activate(request,uidb64, token):
+  pass
+
+
 
 def login(request):
     if request.user.is_authenticated:
