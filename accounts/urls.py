@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import registerUser, registerVender ,login,logout,custDashboard,myAccount ,vendorDashboard , activate,reset_password_validate,forget_passwd,
+from .views import registerUser, registerVender ,login,logout,custDashboard,myAccount ,vendorDashboard , activate,reset_password_validate,forget_passwd,reset_password
 
 
 urlpatterns = [

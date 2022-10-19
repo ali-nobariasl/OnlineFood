@@ -148,3 +148,13 @@ def myAccount(request):
     user = request.user
     redirectUrl = detectUser(user)
     return redirect(redirectUrl)
+
+
+def forget_passwword(request):
+    return render(request, 'accounts/forget_passwword.html')
+
+def reset_password_validate(request,uidb64, token):
+    return
+
+def reset_password(request):
+    return  render(request, 'accounts/reset_password.html') 
