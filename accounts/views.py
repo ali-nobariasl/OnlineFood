@@ -101,7 +101,8 @@ def activate(request,uidb64, token):
         return redirect('myAccount')
     else:
         messages.error(request,'invalid activation link !!!')  
-
+        return redirect('myAccount')
+    
 def login(request):
     if request.user.is_authenticated:
         messages.warning(request, 'You are loged in already :D' )
