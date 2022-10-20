@@ -150,7 +150,7 @@ def myAccount(request):
     return redirect(redirectUrl)
 
 
-def forget_passwword(request):
+def forget_password(request):
     return render(request, 'accounts/forget_passwword.html')
 
 def reset_password_validate(request,uidb64, token):
