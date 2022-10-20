@@ -151,7 +151,7 @@ def myAccount(request):
 
 
 def forget_password(request):
-    return render(request, 'accounts/forget_passwword.html')
+    return render(request, 'accounts/forget_password.html')
 
 def reset_password_validate(request,uidb64, token):
     return
