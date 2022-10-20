@@ -94,19 +94,20 @@ def registerVender(request):
     return render(request, 'accounts/registerVender.html', context)
 
 def activate(request,uidb64, token):
-    # Active the user by setting the is_active status to True
+    # Activate the user by setting the is_active status to True
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
-        user = User._default_manager.get(pk=uid)  
-    except(TypeError,ValueError,OverflowError,User.DoesNotExist):
+        user = User._default_manager.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-    if user is None and default_token_generator.check_token(user,token):
-        user.is_active = True   
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
         user.save()
-        messages.success(request,'Con...! your account has been activated')
+        messages.success(request, 'Congratulation! Your account is activated.')
         return redirect('myAccount')
     else:
-        messages.error(request,'invalid activation link !!!')  
+        messages.error(request, 'Invalid activation link')
         return redirect('myAccount')
     
 def login(request):
