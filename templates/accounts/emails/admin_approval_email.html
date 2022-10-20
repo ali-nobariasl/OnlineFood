@@ -1,0 +1,20 @@
+
+
+
+{% autoescape off %}
+
+Hi {{ user.first_name}},
+
+{% if is_approved %}
+Congratulation, your resturant is now approved
+{% else %}
+we are sorry, your resturant is not approved, for more details, contact us.
+{% endif %}
+
+Please click below link to confirm your registration.
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+
+
+
+
+{% endautoescape %}
