@@ -6,7 +6,7 @@ from .forms import UserForm
 from .models import User, UserProfile
 from django.utils import timezone
 from verndor.forms import VendorForm
-from accounts.utils import detectUser , send_verification_email
+from accounts.utils import detectUser , send_verification_email , send_password_resert_email
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.core.exceptions import PermissionDenied 
 from django.utils.http import urlsafe_base64_decode
@@ -151,7 +151,22 @@ def myAccount(request):
 
 
 def forget_password(request):
-    return render(request, 'accounts/forget_password.html')
+    if request.user == 'POST':
+        email = request.POST['email']
+        if User.objects.filter(email=email).filter():
+            user = User.objects.get(email__exact=email)
+            
+            # send reset password email
+            send_password_resert_email(request, user)
+            messages.success(request,'password reset link has been sent to your mail address. ')
+            return redirect('login')
+        else:
+            messages.success(request,'account does not exist')
+            return redirect('forget_password')
+        
+    return render(request,'accounts/forget_password.html')
+
+
 
 def reset_password_validate(request,uidb64, token):
     return
