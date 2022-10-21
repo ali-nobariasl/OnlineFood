@@ -34,4 +34,7 @@ class Vender(models.Model):
     
         return super(Vender, self).save(*args, **kwargs)
     
-       
+  
+class Ali():
+    def ali():
+        pass           
