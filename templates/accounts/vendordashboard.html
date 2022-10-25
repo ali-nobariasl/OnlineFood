@@ -1,11 +1,11 @@
 {% extends 'base.html'%}
-
+{% load static %}
 {% block content %}
 {% include 'includes/alerts.html' %}
 
 <!-- Main Section Start -->
 <div class="main-section">
-    <div class="page-section restaurant-detail-image-section" style=" background: url(assets/extra-images/cover-photo01.jpg) no-repeat scroll 0 0 / cover;">
+    <div class="page-section restaurant-detail-image-section" style=" background: url({% static '/extra-images/cover-photo01.jpg' %}) no-repeat scroll 0 0 / cover;">
         <!-- Container Start -->
         <div class="container">
             <!-- Row Start -->
@@ -16,7 +16,7 @@
                         <div class="company-info">
                             <div class="img-holder">
                                 <figure>
-                                    <img src="assets/extra-images/listing-logo18.png" alt="">
+                                    <img src="{% static 'assets/extra-images/listing-logo18.png' %}" alt="">
                                 </figure>
                             </div>
 
@@ -40,20 +40,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="user-account-nav user-account-sidebar">
-                        <div class="user-nav-list">
-                            <ul>
-                                <li class="active"><a href="restaurant-dashboard.html"><i class="icon-dashboard3"></i>Dashboard</a></li>
-                                <li><a href="restaurant-restaurant.html"><i class="icon-building"></i>My Restaurant</a></li>
-                                <li><a href="restaurant-menu-builder.html"><i class="icon-menu5"></i>Menu Builder</a></li>
-                                <li><a href="restaurant-orders.html"><i class="icon-add_shopping_cart"></i>Orders</a></li>
-                                <li><a href="restaurant-earnings.html"><i class="icon-money"></i>Earnings</a></li>
-                                <li><a href="restaurant-statement.html"><i class="icon-file-text22"></i>Statement</a></li>
-                                <li><a href="restaurant-change-password.html"><i class="icon-unlock-alt"></i>Change Password</a></li>
-                                <li><a class="logout-btn" href="registration.html"><i class="icon-log-out"></i>Signout</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <!-- load sidebar here -->
+                    {% include includes/v_sidebar.html %}
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <div class="user-dashboard loader-holder">
