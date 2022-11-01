@@ -33,8 +33,4 @@ class Vender(models.Model):
                     send_notification(mail_subject,mail_template, context)
     
         return super(Vender, self).save(*args, **kwargs)
-    
-  
-class Ali():
-    def ali():
-        pass           
+            
