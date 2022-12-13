@@ -1,26 +1,26 @@
-from django.urls import path , include
+from django.urls import path, include
 
-from .views import registerUser, registerVender ,login,logout,custDashboard,myAccount ,vendorDashboard , activate,reset_password_validate,forget_password,reset_password ,myAccount
-
+from . import views
 
 urlpatterns = [
-    path('', myAccount),
-    path('registerUser/',registerUser, name='registerUser'),
-    path('registerVender/',registerVender, name='registerVender'),
     
-    path('login/', login, name='login'),
-    path('logout/', logout, name='logout'),
-    path('myAccount/', myAccount, name='myAccount'),
-    path('custDashboard/', custDashboard, name='custDashboard'),
-    path('vendorDashboard/', vendorDashboard, name='vendorDashboard'),
+    path('', views.myAccount),
+    path('registerUser/', views.registerUser , name = 'registerUser'),
+    path('registerVendor/', views.registerVendor , name = 'registerVendor'),
     
-    path('activate/<uidb64>/<token>/', activate, name='activate'),
+    path('logout/', views.logout, name = 'logout'),
+    path('login/', views.login, name = 'login'),
+    path('myAccount/', views.myAccount, name = 'myAccount'),
+    path('custdashboard/', views.custdashboard, name = 'custdashboard'),
+    path('vendordashboard/', views.vendordashboard, name = 'vendordashboard'),
     
-    path ('forget_password/', forget_password, name='forget_password'),
-    path ('reset_password_validate/<uidb64>/<token>', reset_password_validate, name='reset_password_validate'),
-    path ('reset_password/', reset_password, name='reset_password'),
+    path('activate/<uidb64>/<token>/', views.activate, name = 'activate'),
     
     
-    path('vendor/', include('verndor.urls'))
+    path('forgot_password/', views.forgot_password, name = 'forgot_password'),
+    path('reset_password_validate/<uidb64>/<token>/', views.reset_password_validate, name = 'reset_password_validate'),
+    path('reset_password/', views.reset_password, name = 'reset_password'),
+    
+    path('vendor/', include('vendor.urls'))
+    
 ]
-

@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import User
 
 class UserForm(forms.ModelForm):
@@ -13,9 +14,4 @@ class UserForm(forms.ModelForm):
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
         if confirm_password != password:
-            raise forms.ValidationError(
-                    "password does not match !!!"
-                )
-            
-
-
+            raise forms.ValidationError( "password does not match !!!")
