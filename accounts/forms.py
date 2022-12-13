@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import User
+from .models import User , UserProfile
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -15,3 +15,9 @@ class UserForm(forms.ModelForm):
         confirm_password = cleaned_data.get('confirm_password')
         if confirm_password != password:
             raise forms.ValidationError( "password does not match !!!")
+        
+        
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model= UserProfile
+        fields = "__all__"
