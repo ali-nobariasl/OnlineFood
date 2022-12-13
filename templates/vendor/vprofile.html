@@ -25,7 +25,7 @@
 
                             <!-- My Restaurants Form Start -->
 
-                            <form action="{% url 'vprofile' %} " method="post" enctype= "mulipart/form-data" >
+                            <form action="{% url 'vprofile' %} " method="POST" enctype= "multipart/form-data" >
                                  {% csrf_token %}
                                 <div class="form-fields-set">
                                     <ul>
@@ -81,7 +81,7 @@
                                                                 <li class="gal-img">
                                                                     <div class="drag-list">
                                                                         <div class="item-thumb">
-                                                                            <img class="thumbnail" src="{{ vendor.vendor_license}}" alt="License">
+                                                                            <img class="thumbnail" src="{{ vendor.vendor_license.url}}" alt="License">
                                                                         </div>
                                                                     </div>
                                                                 </li>
