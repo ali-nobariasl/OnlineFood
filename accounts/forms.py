@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import User , UserProfile
+from .validators import allow_only_image_validator
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -19,8 +20,8 @@ class UserForm(forms.ModelForm):
         
 class UserProfileForm(forms.ModelForm):
     
-    profile_picture = forms.ImageField(widget=forms.FileInput(attrs={'class':'btn btn-info'}))
-    cover_photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'btn btn-info'}))
+    profile_picture = forms.FileField(widget=forms.FileInput(attrs={'class':'btn btn-info'}), validators= [allow_only_image_validator])
+    cover_photo = forms.FileField(widget=forms.FileInput(attrs={'class':'btn btn-info'}), validators= [allow_only_image_validator] )
     
     class Meta:
         model= UserProfile
