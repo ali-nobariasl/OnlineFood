@@ -36,8 +36,8 @@
                                             <small class="text-muted">{{cat.description}}</small></a>
                                         </td>
                                         <td>
-                                            <i class="fa fa-pencil" aria-hidden="true"></i> &nbsp
-                                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                            <a href="{% url 'edit_category' cat.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp
+                                            <a href="{% url 'delete_category' cat.id %}""><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
                                         </td>  
                                     </tr>
                                     {% endfor %}

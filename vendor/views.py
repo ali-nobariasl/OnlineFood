@@ -51,7 +51,7 @@ def vprofile(request):
 @user_passes_test(check_role_vendor)
 def menu_builder(request):
     vendor = get_vendor(request)
-    categories = Category.objects.filter(vendor=vendor)
+    categories = Category.objects.filter(vendor=vendor).order_by('created_at')
     context = {
         'vendor':vendor,
         'categories':categories,
@@ -107,7 +107,7 @@ def edit_category(request,pk=None):
             category.sluge = slugify(category_name)
             category.vendor = get_vendor(request)
             form.save()
-            messages.success(request, 'updated successfully')
+            messages.success(request, 'Updated successfully')
             redirect('menu_builder')
         else:
             print(form.errors)
@@ -118,3 +118,10 @@ def edit_category(request,pk=None):
         'form':form
     }
     return render(request,'vendor/edit_category.html', context)
+
+
+def delete_category(request, pk=None):
+    category = Category.objects.get(pk=pk)
+    category.delete()
+    messages.success(request, 'Delete successfully')
+    return redirect('menu_builder')
