@@ -83,12 +83,38 @@ def add_category(request):
             category = form.save(commit=False)
             category.sluge = slugify(category_name)
             category.vendor = get_vendor(request)
-            category.save()
+            form.save()
             messages.success(request,'your category added successfully')
             return redirect('menu_builder')
+        else:
+            print(form.errors)
     else:
         form = CategoryForm()
     context = {
         'form': form,
     }
     return render(request,'vendor/add_category.html', context)
+
+
+def edit_category(request,pk=None):
+    category = get_object_or_404(Category,pk=pk)
+    
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            category_name = form.cleaned_data['category_name']
+            category= form.save(commit=False)
+            category.sluge = slugify(category_name)
+            category.vendor = get_vendor(request)
+            form.save()
+            messages.success(request, 'updated successfully')
+            redirect('menu_builder')
+        else:
+            print(form.errors)
+    else:
+        form = CategoryForm(instance=category)
+    
+    context = {
+        'form':form
+    }
+    return render(request,'vendor/edit_category.html', context)
