@@ -9,7 +9,7 @@ from accounts.models import UserProfile
 from .models import Vendor
 from accounts.views import check_role_vendor
 from menu.models import Category , FoodItem
-from menu.forms import CategoryForm
+from menu.forms import CategoryForm , FoodItemForm
 
 def get_vendor(request):
     vendor = Vendor.objects.get(user = request.user)
@@ -125,3 +125,26 @@ def delete_category(request, pk=None):
     category.delete()
     messages.success(request, 'Delete successfully')
     return redirect('menu_builder')
+
+
+def add_food(request):
+    if request.method == 'POST':
+        form = FoodItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            food_title = form.cleaned_data['food_title']
+            food = form.save(commit=False)
+            food.vendor = get_vendor(request)
+            #food.category = Category.objects.get(vendor=food.vendor)
+            food.sluge = slugify(food_title)
+            form.save()
+            messages.success(request, 'Food item added successfully')
+            return redirect('fooditems_by_category', food.category.id)
+        else:
+            print(form.errors)
+    else:
+        form = FoodItemForm()
+        
+    context = {
+        'form': form,
+    }
+    return render(request, 'vendor/add_food.html', context)
