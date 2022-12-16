@@ -38,7 +38,11 @@
                                                                 <li class="gal-img">
                                                                     <div class="drag-list">
                                                                         <div class="item-thumb">
+                                                                            {% if profile.profile_picture %}
                                                                             <img class="thumbnail" src="{{ profile.profile_picture.url }}" alt="Logo">
+                                                                            {% else %}
+                                                                            <img class="thumbnail" src="{% static 'image/default-profile.png' %}" alt="Logo">
+                                                                            {% endif %}
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -60,7 +64,11 @@
                                                                 <li class="gal-img">
                                                                     <div class="drag-list">
                                                                         <div class="item-thumb">
+                                                                            {% if profile.cover_photo %}
                                                                             <img class="thumbnail" src="{{ profile.cover_photo.url }}" alt="Cover">
+                                                                            {% else %}
+                                                                            <img class="thumbnail" src="{% static 'image/default-cover.png' %}" alt="Logo">
+                                                                            {% endif %}
                                                                         </div>
                                                                     </div>
                                                                 </li>
