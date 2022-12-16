@@ -92,6 +92,8 @@ def registerVendor(request):
             vendor.user = user
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
+            print('.......................')
+            print(user.password)
             vendor.save()
             
             # Send Verification mail 
@@ -139,6 +141,8 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
+        print('.......................')
+        print(password)
         user = auth.authenticate(email=email, password=password)
         if user is not None:
             auth.login(request, user)
