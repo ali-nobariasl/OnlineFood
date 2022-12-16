@@ -134,7 +134,6 @@ def add_food(request):
             food_title = form.cleaned_data['food_title']
             food = form.save(commit=False)
             food.vendor = get_vendor(request)
-            #food.category = Category.objects.get(vendor=food.vendor)
             food.sluge = slugify(food_title)
             form.save()
             messages.success(request, 'Food item added successfully')
@@ -148,3 +147,36 @@ def add_food(request):
         'form': form,
     }
     return render(request, 'vendor/add_food.html', context)
+
+
+
+def edit_food(request,pk=None):
+    fooditem = FoodItem.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = FoodItemForm(request.POST, request.FILES,instance= fooditem)
+        if form.is_valid():
+            food_title = form.cleaned_data['food_title']
+            food = form.save(commit=False)
+            food.vendor = get_vendor(request)
+            food.sluge = slugify(food_title)
+            food.save()
+            messages.success(request,'Food item updated successfully')
+            redirect('menu_builder')
+        else:
+            print(form.errors)
+    else:
+        form = FoodItemForm(instance= fooditem)
+    
+    
+    context= {
+        'form':form,
+        'food':fooditem,
+    }
+    return render(request, 'vendor/edit_food.html', context)
+
+
+def delete_food(request, pk ):
+    fooditem = FoodItem.objects.get(pk=pk)
+    fooditem.delete()
+    messages.success(request, 'Delete successfully')
+    return redirect('menu_builder')
