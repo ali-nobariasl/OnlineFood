@@ -115,7 +115,8 @@ def edit_category(request,pk=None):
         form = CategoryForm(instance=category)
     
     context = {
-        'form':form
+        'form':form,
+        'category':category,
     }
     return render(request,'vendor/edit_category.html', context)
 
