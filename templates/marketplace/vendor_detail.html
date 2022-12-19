@@ -4,7 +4,7 @@
 
 			<!-- Main Section Start -->
 			<div class="main-section">
-				<div class="page-section restaurant-detail-image-section" style=" background: url(assets/extra-images/cover-photo01.jpg) no-repeat scroll 0 0 / cover;">
+				<div class="page-section restaurant-detail-image-section" style=" background: url({% if vendor.user_profile.cover_photo %} {{vendor.user_profile.cover_photo.url}} {% else %}{% static 'image/default-cover.png' %} {% endif %}) no-repeat scroll 0 0 / cover;">
 					<!-- Container Start -->
 					<div class="container">
 						<!-- Row Start -->
@@ -15,15 +15,15 @@
 									<div class="company-info">
 										<div class="img-holder">
 											<figure>
-												<img src="assets/extra-images/listing-logo18.png" alt="">
+                                                {% if vendor.user_profile.profile_picture %}
+												<img src="{{ vendor.user_profile.profile_picture }}" alt="">
+                                                {% else %}
+                                                <img src="{% static 'image/default-profile.png' %}">
+                                                {% endif %}
 											</figure>
 										</div>
 										<div class="text-holder">
-											<span class="restaurant-title">Restaurant Demo</span>
-											<div class="text">
-												<i class="icon-local_pizza"></i>
-												<p>Apple Juice</p>
-											</div>
+											<span class="restaurant-title">{{vendor.vendor_name}}</span>
 										</div>
 									</div>
 									<div class="delivery-timing reviews-sortby">
