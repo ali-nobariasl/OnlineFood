@@ -143,7 +143,7 @@ def add_food(request):
             print(form.errors)
     else:
         form = FoodItemForm()
-        
+        form.fiels['category'] = food.category.filter(vendor=get_vendor(request))
     context = {
         'form': form,
     }
@@ -166,7 +166,9 @@ def edit_food(request,pk=None):
         else:
             print(form.errors)
     else:
+        
         form = FoodItemForm(instance= fooditem)
+        form.fiels['category'] = food.category.filter(vendor=get_vendor(request))
     
     
     context= {
