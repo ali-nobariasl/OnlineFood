@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse
 
 from vendor.models import Vendor
-from menu.models import Category
+from menu.models import Category,FoodItem
 
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
@@ -27,3 +27,7 @@ def vendor_detail(request, vendor_slug):
         'categories': categories,
     }
     return render(request,'marketplace/vendor_detail.html', context)
+
+
+def card_to_card(request, food_id=None):
+    return HttpResponse('testing')
