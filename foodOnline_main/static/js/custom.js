@@ -9,7 +9,7 @@ $(document).ready(function() {
         data = {
             food_id:food_id,
         }
-        
+
         $.ajax({
             type : 'GET',
             url : url,
@@ -20,4 +20,12 @@ $(document).ready(function() {
         })
 
     })
+
+    // place the cart item quantity on load
+    $('.item_qty').each(function() {
+        var the_id = $(this).attr('id');
+        var qty = $(this).attr('data-qty');
+        $('#'+ the_id).html(qty)
+    })
+
 });
