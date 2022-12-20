@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from vendor.models import Vendor
 from menu.models import Category,FoodItem
 from marketplace.models import Cart
+from marketplace.context_processors import get_cart_counter
 
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
@@ -47,13 +48,17 @@ def add_to_cart(request, food_id=None):
                     chkCart.quantity += 1
                     chkCart.save()
                     return JsonResponse({
-                    'status':'Success',
-                    'message': 'Increased the cart quantity'})
+                        'status':'Success',
+                        'message': 'Increased the cart quantity',
+                        'cart_counter': get_cart_counter(request),
+                        'qty': chkCart.quantity})
                 except:
                     chkCart = Cart.objects.create(user=request.user, fooditem=footitem, quantity=1)
                     return JsonResponse({
-                    'status':'Success',
-                    'message': 'Added to the food cart'}) 
+                        'status':'Success',
+                        'message': 'Added to the food cart',
+                        'cart_counter': get_cart_counter(request),
+                        'qty': chkCart.quantity})
             except:
                 return JsonResponse({
                     'status':'failed',
@@ -66,3 +71,31 @@ def add_to_cart(request, food_id=None):
         return JsonResponse({
             'status':'failed',
             'message': 'Please Login to continue'})
+        
+        
+def decrease_cart(request,food_id):
+    if request.user.is_authenticated():
+        if request.is_ajax():
+            try:
+                footitem = FoodItem.objects.get(id=food_id)
+                try:
+                    chkCart = Cart.objects.get(user=request.user, fooditem=footitem)
+                    if chkCart.quantity > 1:
+                        chkCart.quantity -= 1
+                        chkCart.save()
+                    else:
+                        chkCart.delete()
+                        chkCart.quantity = 0
+                    return JsonResponse({
+                        'status':'Success',
+                        'message': 'Increased the cart quantity',
+                        'cart_counter': get_cart_counter(request),
+                        'qty': chkCart.quantity})
+                except:
+                    return JsonResponse({'status':'Failed','message': 'You dont have this in your cart'})
+            except:
+                return JsonResponse({'status':'Failed','message': 'Invalid request'}) 
+        else:
+            return JsonResponse({'status':'Failed','message': 'Invalid request'})
+    else:
+        return JsonResponse({'status':'Failed','message': 'Please Login to continue'})
