@@ -104,9 +104,18 @@ $(document).ready(function() {
                 }else{
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     swal(response.status,'response.message','success')
+                    removeCartItem(0,cart_id);
                 }
             }
         })
     })
+
+    //delete the cart element if the qty is 0
+    function removeCartItem(cartItemQuantity, cart_id){
+        if (cartItemQuantity <= 0){
+            // remove the cart item elemnt 
+            document.getElementById("cart-item-"+ cart_id).remove()
+        }
+    }
 
 });
