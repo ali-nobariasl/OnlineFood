@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for cart in cart_items %}
+{{ cart.fooditem}}
+{{cart.quantity}}
+</br>
+{% endfor %}
+
+
+
+{% endblock %}
