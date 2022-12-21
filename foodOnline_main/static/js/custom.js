@@ -17,15 +17,18 @@ $(document).ready(function() {
                     console.log('riase the error')
                 }else{
                     $('#cart_counter').html(response.cart_counter['cart_count']);
-                    $('#qty-'+food_id).html(qty);
+                    $('#qty-'+food_id).html(response.qty);
                 }
             }
         })
     })
+
+    // place the cart item quantity on load
     $('.item_qty').each(function(){
         var the_id = $(this).attr('id')
         var qty = $(this).attr('data-qty')
         $('#'+the_id).html(qty)
+        console.log(qty)
     })
 
     //decrease cart
@@ -40,10 +43,10 @@ $(document).ready(function() {
             success : function(response) {
                 console.log(response)
                 if (response.status =='Failed'){
-                    console.log(response)
+                    console.log('riase the error')
                 }else{
                     $('#cart_counter').html(response.cart_counter['cart_count']);
-                    $('#qty-food.id').html(response.qty);
+                    $('#qty-'+food_id).html(response.qty);
                 }
             }
         })
