@@ -66,6 +66,7 @@ $(document).ready(function() {
         e.preventDefault();
         food_id = $(this).attr('data-id');
         url = $(this).attr('data-url');
+        cart_id = $(this).attr('id');
 
         $.ajax({
             type : 'GET',
@@ -76,13 +77,16 @@ $(document).ready(function() {
                     swal(response.message,'','info').then(function(){
                         window.location = '/login/';
                     })
-                
                 }else if (response.status =='Failed'){
                     swal(response.message,'','error')
                 }else{
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     $('#qty-'+food_id).html(response.qty);
-                }
+
+                    if(window.location.pathname=='/cart'){
+                        removeCartItem(response.qty, cart_id);
+                        checkEmptyCart();
+                }   }
             }
         })
     })
