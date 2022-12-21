@@ -85,7 +85,7 @@ def decrease_cart(request,food_id):
     
     
 def cart(request):
-    cart_items = Cart.objects.all()
+    cart_items = Cart.objects.filter(user=request.user)
     context = {
         'cart_items':cart_items,
     }
