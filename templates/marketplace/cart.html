@@ -36,7 +36,7 @@
 															<div class="price-holder">
 																<span class="price">$ {{item.fooditem.price}}</span>
 
-                                                                <a href="#" class="decrease_cart" data-id="{{item.fooditem.id}}" data-url="{% url 'decrease_cart' item.fooditem.id %}" style="margin-right: 28px;">
+                                                                <a href="#" class="decrease_cart" data-id="{{item.fooditem.id}}" id="{{item.id}}" data-url="{% url 'decrease_cart' item.fooditem.id %}" style="margin-right: 28px;">
                                                                     <i class="icon-minus text-color"></i>
                                                                 </a>
 
