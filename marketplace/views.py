@@ -110,3 +110,7 @@ def delete_cart(request,cart_id):
                 return JsonResponse({'status':'Failed','message': 'Cart item does not exist'}) 
         else:
             return JsonResponse({'status':'Success','message': 'Invalid request'})
+        
+        
+def search(request):
+    return JsonResponse({'status':'Success','message':''})
