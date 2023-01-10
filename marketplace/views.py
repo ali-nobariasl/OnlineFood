@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.db.models import Q
 
 from marketplace.context_processors import get_cart_amounts, get_cart_counter
 from marketplace.models import Cart
@@ -114,17 +115,19 @@ def delete_cart(request,cart_id):
         
 def search(request):
     
-    address = request.GET['address']
-    latitude = request.GET['lat']
-    longitude = request.GET['lng']
-    radius = request.GET['radius']
+    #address = request.GET['id_address']
+    #latitude = request.GET['lat']
+    #longitude = request.GET['lng']
+    #radius = request.GET['radius']
     keyword = request.GET['keyword']
     
+    fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title=keyword
+                                                         ,is_available=True).values_list('vendor', flat=True)
     vendors = Vendor.objects.filter(vendor_name__icontains=keyword,
                                    is_approved=True,
                                    user__is_active=True)
     
     
     
-    context = { 'vendors':vendors, 'vendors_count':vendors.count,}
+    context = { 'vendors':vendors, 'vendors_count':vendors.count(),}
     return render(request, 'marketplace/listings.html', context)
