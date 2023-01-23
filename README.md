@@ -8,10 +8,10 @@ Multi-vendor Restaurant Marketplace website with location based search, nearby r
 </br>
 
 
-Python </br>
-Django </br>
-Postgrass </br>
-GeoDjango </br>
+- Python </br>
+- Django </br>
+- Postgrass </br>
+- GeoDjango, PostGIS, GDAL </br>
 
 </br>
 
