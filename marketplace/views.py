@@ -123,11 +123,12 @@ def search(request):
     
     fetch_vendors_by_fooditems = FoodItem.objects.filter(food_title=keyword
                                                          ,is_available=True).values_list('vendor', flat=True)
-    vendors = Vendor.objects.filter(vendor_name__icontains=keyword,
+    vendors = Vendor.objects.filter(
+                    Q(id__in= fetch_vendors_by_fooditems)| Q(vendor_name__icontains=keyword,
                                    is_approved=True,
-                                   user__is_active=True)
+                                   user__is_active=True))
     
     
-    
-    context = { 'vendors':vendors, 'vendors_count':vendors.count(),}
+    vendor_count = vendors.count()
+    context = { 'vendors':vendors, 'vendors_count':vendor_count ,}
     return render(request, 'marketplace/listings.html', context)
